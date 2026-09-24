@@ -54,5 +54,5 @@ function PortfolioContent() {
 }
 
 export default function App() {
-  return <main><header><h1>Olen&nbsp;Thompson</h1><p className="role">Developer · Security Researcher</p><p className="note">Available for freelance work</p></header><PortfolioContent /><TuxSection /></main>;
+  return <main><header><h1>Olen&nbsp;Thompson</h1><p className="role">Developer · Security Researcher</p></header><PortfolioContent /><TuxSection /></main>;
 }
