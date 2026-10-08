@@ -1,14 +1,142 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Olen Thompson" />
-    <title>Olen Thompson</title>
-    <script type="module" crossorigin src="/assets/index-DASRTGWv.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DBi5X0QZ.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olen Thompson</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #0a0a0f;
+    font-family: 'Georgia', serif;
+  }
+  ascii-art {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    pointer-events: none;
+    font-size: 12px;
+    line-height: 1;
+  }
+  ascii-art canvas, ascii-art pre {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+  ascii-art pre {
+    overflow: hidden;
+  }
+  .overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(ellipse at center, rgba(10,10,15,0.55) 0%, rgba(10,10,15,0.2) 60%, transparent 100%);
+  }
+  h1 {
+    color: #fff;
+    font-size: clamp(2rem, 6vw, 4rem);
+    margin: 0 0 1rem;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+  }
+  .links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .links a {
+    color: #cfe3ff;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(207,227,255,0.4);
+    border-radius: 999px;
+    background: rgba(0,0,0,0.35);
+    transition: background 0.2s, color 0.2s;
+  }
+  .links a:hover {
+    background: rgba(207,227,255,0.2);
+    color: #fff;
+  }
+  .projects {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 600px;
+    padding: 0 1rem;
+  }
+  .projects a {
+    color: #b8c7de;
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
+  }
+  .projects a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .projects strong {
+    color: #e8f0ff;
+  }
+</style>
+</head>
+<body>
+  <script type="module" src="./ascii/ascii.js"></script>
+  <ascii-art piece="alpine-dawn"></ascii-art>
+  <ascii-art id="favicon-art" piece="tux" options='{"scan":5}' style="position:fixed;left:-9999px;top:-9999px;width:64px;height:64px"></ascii-art>
+  <script type="module">
+    const el = document.getElementById('favicon-art');
+    const timer = setInterval(() => {
+      const canvas = el.querySelector('canvas');
+      const pre = el.querySelector('pre');
+      if (canvas && canvas.width > 0) {
+        clearInterval(timer);
+        const link = document.createElement('link');
+        link.rel = 'icon';
+        link.href = canvas.toDataURL('image/png');
+        document.head.appendChild(link);
+      } else if (pre && pre.textContent.trim()) {
+        clearInterval(timer);
+        const lines = pre.textContent.split('\n');
+        const c = document.createElement('canvas');
+        c.width = 64; c.height = 64;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#0a0a0f';
+        ctx.fillRect(0, 0, 64, 64);
+        ctx.fillStyle = '#fff';
+        ctx.font = '8px monospace';
+        lines.forEach((l, i) => ctx.fillText(l, 0, (i + 1) * 9));
+        const link = document.createElement('link');
+        link.rel = 'icon';
+        link.href = c.toDataURL('image/png');
+        document.head.appendChild(link);
+      }
+    }, 200);
+  </script>
+  <div class="overlay">
+    <h1>Olen Thompson</h1>
+    <div class="links">
+      <a href="https://x.com/ember2819" target="_blank" rel="noopener">x.com/ember2819</a>
+      <a href="https://github.com/ember2819" target="_blank" rel="noopener">github.com/ember2819</a>
+      <a href="mailto:olenthompson2819@gmail.com">olenthompson2819@gmail.com</a>
+    </div>
+    <div class="projects">
+      <a href="https://github.com/GeckoOS/GeckoOS" target="_blank" rel="noopener"><strong>GeckoOS</strong> — An operating system built from scratch with a community of contributors.</a>
+      <a href="https://github.com/Ember2819/ollama-scout" target="_blank" rel="noopener"><strong>ollama-scout</strong> — Finds and tests publicly exposed Ollama endpoints running without authentication.</a>
+    </div>
+  </div>
+</body>
 </html>
