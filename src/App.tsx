@@ -70,7 +70,10 @@ const Hero = () => (
     id="top"
     className="relative isolate flex min-h-svh flex-col items-center overflow-hidden pt-[30svh] pb-[34svh]"
   >
-    <Horizon className="absolute inset-0 -z-10" horizon={0.17} />
+    <Horizon
+      className="absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black_80%,transparent)]"
+      horizon={0.15}
+    />
     <div className="mx-auto flex w-fit flex-col items-center px-6 text-center">
       <h1 className="animate-rise text-5xl font-semibold tracking-tighter sm:text-7xl md:text-8xl">
         <Scramble text="Olen Thompson" />
