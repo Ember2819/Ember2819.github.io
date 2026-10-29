@@ -1,0 +1,42 @@
+[
+  {
+    "name": "BumbleBee",
+    "owner": "Ember2819",
+    "description": "BumbleBee is an advanced network tool capable of scanning networks to identify their type, and then knocking devices offline.",
+    "url": "https://github.com/Ember2819/BumbleBee",
+    "homepage": null,
+    "stars": 0,
+    "forks": 0,
+    "language": "Python"
+  },
+  {
+    "name": "GeckoOS",
+    "owner": "GeckoOS",
+    "description": "Community-made bare-bones operating system",
+    "url": "https://github.com/GeckoOS/GeckoOS",
+    "homepage": null,
+    "stars": 9,
+    "forks": 4,
+    "language": "C"
+  },
+  {
+    "name": "ollama-scout",
+    "owner": "Ember2819",
+    "description": "So many exposed Ollama endpoints with no auth...",
+    "url": "https://github.com/Ember2819/ollama-scout",
+    "homepage": null,
+    "stars": 13,
+    "forks": 1,
+    "language": "HTML"
+  },
+  {
+    "name": "text2braille",
+    "owner": "Ember2819",
+    "description": "Convert typed text into a 3d-printable Braille label",
+    "url": "https://github.com/Ember2819/text2braille",
+    "homepage": "https://text2braille.vercel.app",
+    "stars": 2,
+    "forks": 0,
+    "language": "TypeScript"
+  }
+]
