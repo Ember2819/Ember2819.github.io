@@ -174,13 +174,6 @@
   html.dark {
     color-scheme: dark;
   }
-  /* The faint upper reaches of the hero aurora. */
-  :root {
-    --sky-tip: color-mix(in oklch, var(--dither-color-purple) 26%, var(--dither-paper));
-  }
-  .dark {
-    --sky-tip: color-mix(in oklch, var(--dither-color-purple) 42%, var(--dither-paper));
-  }
   ::selection {
     background: color-mix(in oklch, var(--primary) 30%, transparent);
   }

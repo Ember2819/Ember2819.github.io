@@ -1,18 +1,6 @@
 {
   "pinned": [
     {
-      "name": "BumbleBee",
-      "owner": "Ember2819",
-      "description": "BumbleBee is an advanced network tool capable of scanning networks to identify their type, and then knocking devices offline.",
-      "url": "https://github.com/Ember2819/BumbleBee",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": "Python",
-      "created": "2026-06-03",
-      "pushed": "2026-06-03"
-    },
-    {
       "name": "GeckoOS",
       "owner": "GeckoOS",
       "description": "Community-made bare-bones operating system",
@@ -23,6 +11,18 @@
       "language": "C",
       "created": "2026-05-13",
       "pushed": "2026-09-22"
+    },
+    {
+      "name": "openstudio",
+      "owner": "Ember2819",
+      "description": "An open source music production studio",
+      "url": "https://github.com/Ember2819/openstudio",
+      "homepage": null,
+      "stars": 2,
+      "forks": 0,
+      "language": "JavaScript",
+      "created": "2026-10-25",
+      "pushed": "2026-10-28"
     },
     {
       "name": "ollama-scout",
@@ -47,164 +47,6 @@
       "language": "TypeScript",
       "created": "2026-09-19",
       "pushed": "2026-09-19"
-    }
-  ],
-  "other": [
-    {
-      "name": "android-sim",
-      "owner": "Ember2819",
-      "description": "idk messing around with ai ",
-      "url": "https://github.com/Ember2819/android-sim",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": "JavaScript",
-      "created": "2026-10-28",
-      "pushed": "2026-10-28"
-    },
-    {
-      "name": "omatype",
-      "owner": "Ember2819",
-      "description": "Inspired from OmaWrite and MonkeyType, a simple minimal typing timer app.",
-      "url": "https://github.com/Ember2819/omatype",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": "QML",
-      "created": "2026-10-20",
-      "pushed": "2026-10-20"
-    },
-    {
-      "name": "superintelligence",
-      "owner": "Ember2819",
-      "description": "My AI video game",
-      "url": "https://github.com/Ember2819/superintelligence",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": null,
-      "created": "2026-09-14",
-      "pushed": "2026-09-14"
-    },
-    {
-      "name": "cv-projects",
-      "owner": "Ember2819",
-      "description": "A collection of computer vision projects, practice for a project I'm working on.",
-      "url": "https://github.com/Ember2819/cv-projects",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": null,
-      "created": "2026-08-12",
-      "pushed": "2026-08-12"
-    },
-    {
-      "name": "Mistral_GroupMe_Bot",
-      "owner": "Ember2819",
-      "description": "Code for a Group Me bot that integrates with Mistral AI for free.",
-      "url": "https://github.com/Ember2819/Mistral_GroupMe_Bot",
-      "homepage": "https://mistral-group-me-bot.vercel.app",
-      "stars": 0,
-      "forks": 0,
-      "language": "Python",
-      "created": "2026-03-02",
-      "pushed": "2026-08-06"
-    },
-    {
-      "name": "taskmarket-mcp-server",
-      "owner": "Ember2819",
-      "description": "MCP server integrating TaskMarket tools for AI agents",
-      "url": "https://github.com/Ember2819/taskmarket-mcp-server",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": "JavaScript",
-      "created": "2026-08-05",
-      "pushed": "2026-08-05"
-    },
-    {
-      "name": "ai-vs-humans-signup",
-      "owner": "Ember2819",
-      "description": "Signup page for the AI vs Humans competition",
-      "url": "https://github.com/Ember2819/ai-vs-humans-signup",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": "HTML",
-      "created": "2026-07-11",
-      "pushed": "2026-07-11"
-    },
-    {
-      "name": "vibecheck",
-      "owner": "Ember2819",
-      "description": "Detect whether a website is vibe coded/AI slop",
-      "url": "https://github.com/Ember2819/vibecheck",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": "Go",
-      "created": "2026-07-07",
-      "pushed": "2026-07-07"
-    },
-    {
-      "name": "Random-People-Coding-Stuff",
-      "owner": "Ember2819",
-      "description": "A bunch of people wasting time together... Building an OS from scratch. NO AI SLOP!! ",
-      "url": "https://github.com/Ember2819/Random-People-Coding-Stuff",
-      "homepage": "https://ember2819.github.io/Random-People-Coding-Stuff/",
-      "stars": 19,
-      "forks": 11,
-      "language": "C",
-      "created": "2026-03-19",
-      "pushed": "2026-05-16"
-    },
-    {
-      "name": "Discord2Matrix",
-      "owner": "Ember2819",
-      "description": "A free method to mirror a discord server and a Matrix.org room.",
-      "url": "https://github.com/Ember2819/Discord2Matrix",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": "Python",
-      "created": "2026-05-12",
-      "pushed": "2026-05-12"
-    },
-    {
-      "name": "Required-Writeups",
-      "owner": "Ember2819",
-      "description": "PicoCTF Required Writeups",
-      "url": "https://github.com/Ember2819/Required-Writeups",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": null,
-      "created": "2026-03-22",
-      "pushed": "2026-03-22"
-    },
-    {
-      "name": "Terminal-Texting",
-      "owner": "Ember2819",
-      "description": "A simple messaging system that runs in the terminal that allows you to connect to various social and messaging apps and send and receive messages through the terminal.",
-      "url": "https://github.com/Ember2819/Terminal-Texting",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": "Python",
-      "created": "2026-03-17",
-      "pushed": "2026-03-18"
-    },
-    {
-      "name": "Ember-Kit",
-      "owner": "Ember2819",
-      "description": "A simple cybersecurity utility program.",
-      "url": "https://github.com/Ember2819/Ember-Kit",
-      "homepage": null,
-      "stars": 0,
-      "forks": 0,
-      "language": "Python",
-      "created": "2026-02-22",
-      "pushed": "2026-02-28"
     }
   ]
 }

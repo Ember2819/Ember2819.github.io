@@ -1,13 +1,12 @@
-// Refreshes src/data/projects.json from github.com/Ember2819: the pinned repos,
-// then every other public, non-fork repo with a description, most recently
-// pushed first. Needs a GITHUB_TOKEN (the Actions token works). Without one,
-// or if GitHub errors, it keeps the committed file so the build never breaks.
+// Refreshes src/data/projects.json (the repos pinned on github.com/Ember2819)
+// and src/data/contributions.json (the contribution calendar). Needs a
+// GITHUB_TOKEN (the Actions token works). Without one, or if GitHub errors,
+// it keeps the committed files so the build never breaks.
 import { writeFile } from "node:fs/promises";
 
 const LOGIN = "Ember2819";
-const OUT = new URL("../src/data/projects.json", import.meta.url);
-// The profile README and this site are repos, but not projects.
-const SKIP = new Set([LOGIN, `${LOGIN}.github.io`].map((name) => name.toLowerCase()));
+const PROJECTS_OUT = new URL("../src/data/projects.json", import.meta.url);
+const CONTRIBUTIONS_OUT = new URL("../src/data/contributions.json", import.meta.url);
 const token = process.env.GITHUB_TOKEN;
 
 const REPO = `
@@ -28,8 +27,11 @@ const query = `{
     pinnedItems(first: 6, types: REPOSITORY) {
       nodes { ... on Repository { ${REPO} } }
     }
-    repositories(first: 100, privacy: PUBLIC, isFork: false, ownerAffiliations: OWNER, orderBy: { field: PUSHED_AT, direction: DESC }) {
-      nodes { ${REPO} }
+    contributionsCollection {
+      contributionCalendar {
+        totalContributions
+        weeks { contributionDays { date contributionCount } }
+      }
     }
   }
 }`;
@@ -64,12 +66,17 @@ try {
     throw new Error(JSON.stringify(json.errors ?? response.status));
   }
   const pinned = user.pinnedItems.nodes.map(shape);
-  const taken = new Set(pinned.map((repo) => repo.url));
-  const other = user.repositories.nodes
-    .filter((repo) => repo.description && !taken.has(repo.url) && !SKIP.has(repo.name.toLowerCase()))
-    .map(shape);
-  await writeFile(OUT, `${JSON.stringify({ pinned, other }, null, 2)}\n`);
-  console.log(`sync-pinned: wrote ${pinned.length} pinned and ${other.length} other repos`);
+  await writeFile(PROJECTS_OUT, `${JSON.stringify({ pinned }, null, 2)}\n`);
+  console.log(`sync-pinned: wrote ${pinned.length} pinned repos`);
+
+  const calendar = user.contributionsCollection?.contributionCalendar;
+  if (calendar) {
+    const days = calendar.weeks
+      .flatMap((week) => week.contributionDays)
+      .map((day) => ({ date: day.date, value: day.contributionCount }));
+    await writeFile(CONTRIBUTIONS_OUT, `${JSON.stringify({ total: calendar.totalContributions, days })}\n`);
+    console.log(`sync-pinned: wrote ${days.length} contribution days (${calendar.totalContributions} total)`);
+  }
 } catch (error) {
   console.warn(`sync-pinned: GitHub request failed, keeping the committed file (${error.message})`);
 }

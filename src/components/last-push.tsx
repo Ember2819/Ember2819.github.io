@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 
 import { Loader } from "@/components/dithercn/loader";
 
-type Push = { name: string; url: string; at: Date };
+type Activity = { kind: "push" | "pr"; repo: string; url: string; at: Date };
+
+type GithubEvent = {
+  type: string;
+  created_at: string;
+  repo: { name: string };
+  payload: { action?: string; number?: number };
+};
 
 const ago = (date: Date) => {
   const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
@@ -17,21 +24,33 @@ const ago = (date: Date) => {
   return "just now";
 };
 
-/** The most recent push to one of my own repos, live from the GitHub API. */
+/** My latest public push or opened pull request, to any repo, live from the GitHub API. */
 export const LastPush = ({ user }: { user: string }) => {
-  const [push, setPush] = useState<Push | null>(null);
+  const [activity, setActivity] = useState<Activity | null>(null);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
-    fetch(`https://api.github.com/users/${user}/repos?sort=pushed&per_page=10`, {
+    fetch(`https://api.github.com/users/${user}/events/public?per_page=100`, {
       signal: controller.signal,
     })
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((repos: { name: string; html_url: string; pushed_at: string; fork: boolean }[]) => {
-        const repo = repos.find((r) => !r.fork);
-        if (!repo) throw new Error("no repos");
-        setPush({ name: repo.name, url: repo.html_url, at: new Date(repo.pushed_at) });
+      .then((events: GithubEvent[]) => {
+        const latest = events
+          .flatMap((event): Activity[] => {
+            const at = new Date(event.created_at);
+            const repo = event.repo.name;
+            if (event.type === "PushEvent") {
+              return [{ kind: "push", repo, url: `https://github.com/${repo}`, at }];
+            }
+            if (event.type === "PullRequestEvent" && event.payload.action === "opened") {
+              return [{ kind: "pr", repo, url: `https://github.com/${repo}/pull/${event.payload.number}`, at }];
+            }
+            return [];
+          })
+          .sort((a, b) => b.at.getTime() - a.at.getTime())[0];
+        if (!latest) throw new Error("no recent activity");
+        setActivity(latest);
       })
       .catch((error) => {
         if (!controller.signal.aborted) setFailed(true);
@@ -44,14 +63,14 @@ export const LastPush = ({ user }: { user: string }) => {
 
   return (
     <p className="flex min-h-6 items-center gap-2.5 text-sm text-muted-foreground">
-      <Loader size="sm" label={push ? "Live" : "Loading latest activity"} />
-      {push ? (
+      <Loader size="sm" label={activity ? "Live" : "Loading latest activity"} />
+      {activity ? (
         <span>
-          Last pushed to{" "}
-          <a href={push.url} className="text-foreground underline decoration-foreground/25 underline-offset-4 transition-colors hover:decoration-primary">
-            {push.name}
+          {activity.kind === "push" ? "Last pushed to" : "Last opened a PR in"}{" "}
+          <a href={activity.url} className="text-foreground underline decoration-foreground/25 underline-offset-4 transition-colors hover:decoration-primary">
+            {activity.repo}
           </a>{" "}
-          {ago(push.at)}
+          {ago(activity.at)}
         </span>
       ) : (
         <span>Checking GitHub</span>
