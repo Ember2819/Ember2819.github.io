@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
-import { AsciiArt } from "@/components/ascii-art";
 import { AuroraHorizon } from "@/components/aurora-horizon";
 import { DitheredPhoto } from "@/components/dithered-photo";
 import { LastPush } from "@/components/last-push";
 import { Scramble } from "@/components/scramble";
 import { ThemeToggle } from "@/components/theme-toggle";
-import pinned from "@/data/pinned.json";
+import projects from "@/data/projects.json";
 import { cn } from "@/lib/utils";
 
 const GITHUB = "https://github.com/Ember2819";
@@ -109,31 +108,14 @@ const Hero = () => {
     <section
       ref={section}
       id="top"
-      className="relative isolate flex min-h-svh flex-col items-center overflow-hidden pt-[22svh] pb-[34svh] sm:pt-[24svh]"
+      className="relative isolate flex min-h-svh flex-col items-center overflow-hidden pt-[30svh] pb-[34svh]"
     >
       <AuroraHorizon className="absolute inset-0 -z-10" box={box} />
-      <div ref={text} className="mx-auto flex w-fit max-w-3xl flex-col items-center px-6 text-center">
+      <div ref={text} className="mx-auto flex w-fit flex-col items-center px-6 text-center">
         <h1 className="animate-rise text-5xl font-semibold tracking-tighter sm:text-7xl md:text-8xl">
           <Scramble text="Olen Thompson" />
         </h1>
-        <p className="mt-5 max-w-md animate-rise text-base text-pretty text-muted-foreground [animation-delay:150ms] sm:text-lg">
-          14-year-old developer building operating systems, network tools and things for the web.
-        </p>
-        <div className="mt-8 flex animate-rise flex-wrap items-center justify-center gap-3 [animation-delay:300ms]">
-          <a
-            href="#projects"
-            className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-transform hover:-translate-y-0.5 motion-reduce:transition-none"
-          >
-            See my projects
-          </a>
-          <a
-            href={GITHUB}
-            className="rounded-full border border-foreground/15 bg-background/40 px-5 py-2.5 text-sm font-medium backdrop-blur-sm transition-colors hover:border-foreground/40"
-          >
-            GitHub
-          </a>
-        </div>
-        <div className="mt-8 animate-rise [animation-delay:450ms]">
+        <div className="mt-6 animate-rise [animation-delay:300ms]">
           <LastPush user="Ember2819" />
         </div>
       </div>
@@ -141,109 +123,77 @@ const Hero = () => {
   );
 };
 
-type Repo = (typeof pinned)[number];
-
-const Project = ({ repo, index }: { repo: Repo; index: number }) => {
-  const flip = index % 2 === 1;
-  return (
-    <Reveal>
-      <article className="group grid items-center gap-8 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] md:gap-14">
-        <a
-          href={repo.url}
-          tabIndex={-1}
-          aria-hidden="true"
-          className={cn(
-            "relative block overflow-hidden rounded-2xl border bg-card p-4 transition-[border-color,box-shadow] duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_60px_-20px_var(--primary)] sm:p-6",
-            flip && "md:order-2"
-          )}
-        >
-          <div className="mb-4 flex items-center gap-1.5" aria-hidden="true">
-            <span className="size-2 rounded-full bg-foreground/15" />
-            <span className="size-2 rounded-full bg-foreground/15" />
-            <span className="size-2 rounded-full bg-foreground/15" />
-            <span className="ml-3 font-mono text-[11px] text-muted-foreground">
-              ~/{repo.name.toLowerCase()}
-            </span>
-          </div>
-          <AsciiArt repo={repo.name} label={`Animated ASCII illustration of ${repo.name}`} className="overflow-hidden" />
-        </a>
-        <div className={cn("max-w-md", flip && "md:order-1 md:justify-self-end")}>
-          <p className="font-mono text-sm text-muted-foreground">
-            {repo.owner}/{repo.name}
-          </p>
-          <h3 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">{repo.name}</h3>
-          <p className="mt-4 text-pretty text-muted-foreground">{repo.description}</p>
-          <dl className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            {repo.language && (
-              <div className="flex gap-1.5">
-                <dt className="text-muted-foreground">Language</dt>
-                <dd>{repo.language}</dd>
-              </div>
-            )}
-            <div className="flex gap-1.5">
-              <dt className="text-muted-foreground">Stars</dt>
-              <dd className="tabular-nums">{repo.stars}</dd>
-            </div>
-            {repo.forks > 0 && (
-              <div className="flex gap-1.5">
-                <dt className="text-muted-foreground">Forks</dt>
-                <dd className="tabular-nums">{repo.forks}</dd>
-              </div>
-            )}
-          </dl>
-          <div className="mt-6 flex flex-wrap gap-3 text-sm font-medium">
-            <a href={repo.url} className="rounded-full border border-foreground/15 px-4 py-2 transition-colors hover:border-foreground/40">
-              View source
-            </a>
-            {repo.homepage && (
-              <a href={repo.homepage} className="rounded-full bg-foreground px-4 py-2 text-background transition-opacity hover:opacity-85">
-                Try it live
-              </a>
-            )}
-          </div>
-        </div>
-      </article>
-    </Reveal>
-  );
+type Repo = {
+  name: string;
+  owner: string;
+  description: string;
+  url: string;
+  homepage: string | null;
+  stars: number;
+  language: string | null;
+  created: string;
 };
 
-const Projects = () => (
-  <section id="projects" className="mx-auto max-w-6xl scroll-mt-8 px-6 py-24 sm:py-32">
-    <Reveal className="max-w-xl">
-      <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Pinned projects</h2>
-      <p className="mt-3 text-muted-foreground">
-        The repos pinned on my GitHub profile, synced every time this site deploys.
-      </p>
-    </Reveal>
-    <div className="mt-16 grid gap-24 sm:mt-20 sm:gap-32">
-      {pinned.map((repo, i) => (
-        <Project key={repo.url} repo={repo} index={i} />
-      ))}
+const MONTH = new Intl.DateTimeFormat("en", { month: "short", year: "numeric", timeZone: "UTC" });
+
+const Row = ({ repo }: { repo: Repo }) => (
+  <li className="grid gap-x-8 gap-y-1 border-t py-4 sm:grid-cols-[13rem_minmax(0,1fr)_auto] sm:items-baseline">
+    <div className="flex items-baseline gap-3">
+      <a href={repo.url} className="font-medium underline-offset-4 hover:underline">
+        {repo.owner === "Ember2819" ? repo.name : `${repo.owner}/${repo.name}`}
+      </a>
+      {repo.homepage && (
+        <a href={repo.homepage} className="font-mono text-xs text-primary underline-offset-4 hover:underline">
+          live
+        </a>
+      )}
     </div>
+    <p className="text-pretty text-muted-foreground">{repo.description}</p>
+    <p className="flex gap-4 font-mono text-xs text-muted-foreground tabular-nums sm:justify-end">
+      {repo.language && <span>{repo.language}</span>}
+      {repo.stars > 0 && <span>★ {repo.stars}</span>}
+      <span className="sm:w-16 sm:text-right">{MONTH.format(new Date(repo.created))}</span>
+    </p>
+  </li>
+);
+
+const List = ({ title, repos }: { title: string; repos: Repo[] }) => (
+  <Reveal className="mt-14 first:mt-0">
+    <h3 className="mb-3 font-mono text-xs text-muted-foreground">
+      {title} <span className="text-foreground/30">({repos.length})</span>
+    </h3>
+    <ul className="border-b">
+      {repos.map((repo) => (
+        <Row key={repo.url} repo={repo} />
+      ))}
+    </ul>
+  </Reveal>
+);
+
+const Projects = () => (
+  <section id="projects" className="mx-auto max-w-5xl scroll-mt-8 px-6 py-24 sm:py-32">
+    <h2 className="mb-12 text-3xl font-semibold tracking-tight">Projects</h2>
+    <List title="pinned" repos={projects.pinned} />
+    <List title="everything else" repos={projects.other} />
   </section>
 );
 
 const About = () => (
   <section id="about" className="border-t">
-    <div className="mx-auto grid max-w-4xl items-center gap-10 px-6 py-24 sm:grid-cols-[220px_1fr] sm:gap-14 sm:py-32">
-      <Reveal className="mx-auto w-48 sm:w-full">
-        <div className="overflow-hidden rounded-2xl border bg-background">
+    <div className="mx-auto grid max-w-5xl items-center gap-10 px-6 py-24 sm:grid-cols-[160px_1fr] sm:gap-12">
+      <Reveal className="w-32 sm:w-full">
+        <div className="overflow-hidden rounded-lg border bg-background">
           <DitheredPhoto src="/tux.jpg" alt="Tux the Linux penguin, my GitHub avatar" />
         </div>
       </Reveal>
       <Reveal>
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">Hi, I'm Olen</h2>
-        <p className="mt-4 text-pretty text-muted-foreground">
-          I'm a 14-year-old developer. I like building things that sit close to the
-          machine, like kernels and network scanners, and the occasional web app
-          that turns into something you can hold, like a 3D-printable braille label.
-        </p>
-        <p className="mt-4 text-muted-foreground">
-          Most of my work lives on{" "}
+        <h2 className="text-3xl font-semibold tracking-tight">About</h2>
+        <p className="mt-4 max-w-prose text-muted-foreground">
+          I'm Olen, I'm 14 and I write code. It's all on{" "}
           <a href={GITHUB} className="text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-primary">
             GitHub
           </a>
-          . You can also find me on{" "}
+          , and I'm on{" "}
           <a href={X} className="text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-primary">
             X
           </a>
