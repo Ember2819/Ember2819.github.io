@@ -1,28 +1,7 @@
 import { Voronoi } from "@/components/dithercn/voronoi";
-import { ThemeToggle } from "@/components/theme-toggle";
 import projects from "@/data/projects.json";
 
 const GITHUB = "https://github.com/Ember2819";
-const X = "https://x.com/ember2819";
-
-const Nav = () => (
-  <header className="absolute inset-x-0 top-0 z-10">
-    <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
-      <a href="#top" className="font-mono text-sm tracking-tight">
-        olen<span className="text-primary">@</span>thompson
-      </a>
-      <div className="flex items-center gap-1 text-sm">
-        <a href="#projects" className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground">
-          Projects
-        </a>
-        <a href={GITHUB} className="rounded-full px-3 py-1.5 text-muted-foreground transition-colors hover:text-foreground">
-          GitHub
-        </a>
-        <ThemeToggle />
-      </div>
-    </nav>
-  </header>
-);
 
 const Hero = () => (
   <section
@@ -30,7 +9,7 @@ const Hero = () => (
     className="relative isolate flex min-h-svh items-center justify-center overflow-hidden"
   >
     <Voronoi
-      className="absolute inset-0 -z-10"
+      className="absolute inset-0 -z-10 [mask-image:linear-gradient(to_bottom,black_65%,transparent_97%)]"
       variant="foam"
       drift={0.6}
       fade={0.8}
@@ -93,7 +72,6 @@ const Footer = () => (
       <p className="font-mono">Olen Thompson</p>
       <div className="flex gap-5">
         <a href={GITHUB} className="transition-colors hover:text-foreground">GitHub</a>
-        <a href={X} className="transition-colors hover:text-foreground">X</a>
       </div>
     </div>
   </footer>
@@ -101,7 +79,6 @@ const Footer = () => (
 
 const App = () => (
   <>
-    <Nav />
     <main>
       <Hero />
       <Projects />
